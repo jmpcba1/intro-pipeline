@@ -17,9 +17,11 @@ pipeline {
       }
       input {
         message 'Which Version?'
-        ok 'Deploy'
+        id 'Deploy'
         parameters {
-            choice(name: 'APP_VERSION', choices: "v1.1\nv1.2\nv1.3", description: 'What to deploy?')
+          choice(name: 'APP_VERSION', choices: '''v1.1
+v1.2
+v1.3''', description: 'What to deploy?')
         }
       }
       steps {
@@ -30,5 +32,12 @@ pipeline {
   environment {
     MY_NAME = 'Mary'
     TEST_USER = credentials('test-user')
+  }
+  post {
+    aborted {
+      echo 'Why didn\'t you push my button?'
+      
+    }
+    
   }
 }
